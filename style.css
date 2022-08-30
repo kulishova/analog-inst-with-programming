@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap');
+
+:root {
+    /* Color */
+    --gradient: linear-gradient(
+        #405DE6 0.01%,
+        #833AB4 21.88%,
+        #C13584 47.92%,
+        #E1306C 67.71%,
+        #FD1D1D 84.38%
+    );
+}
+
+body {
+    font-family: 'Sarala', sans-serif;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.gradient {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+    border-radius: 500px;
+    background-color: #fff;
+}
+
+.gradient::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: var(--gradient);
+}
