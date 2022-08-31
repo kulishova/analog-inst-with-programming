@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap');
-
+@import url(/img/icons/style.css);
 :root {
     /* Color */
     --gradient: linear-gradient(
@@ -9,10 +9,23 @@
         #E1306C 67.71%,
         #FD1D1D 84.38%
     );
+    --bg: #0B0E27;
+    --primary: #FFFFFF;
+    --accent: #0B6AF9;
+    --default: #A4A4A4;
+
+    
+    /* Buttons color */
+    --stat_bg: rgba(255, 255, 255, 0.1);
+    --search_bg: rgba(150, 150, 255, 0.2);
+    --active_menu_bg: rgba(150, 150, 255, 0.1);
 }
 
 body {
     font-family: 'Sarala', sans-serif;
+    min-height: 100vh;
+    color: var(--primary);
+    background-color: var(--bg);
 }
 * {
     padding: 0;
@@ -25,7 +38,7 @@ body {
     height: 250px;
     margin: 10px;
     border-radius: 500px;
-    background-color: #fff;
+    background-color: var(--bg);
 }
 
 .gradient::before {
@@ -39,4 +52,24 @@ body {
     bottom: -5px;
     z-index: -1;
     background: var(--gradient);
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+}
+
+.button {
+    display: inline-block;
+    position: relative;
+    padding: 8px 32px;
+    border-radius: 8px;
+    background-color: var(--stat_bg);
+}
+.button2 {
+    display: inline-block;
+    position: relative;
+    padding: 8px 32px;
+    border-radius: 8px;
+    background-color: var(--search_bg);
 }

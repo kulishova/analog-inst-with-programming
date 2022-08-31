@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'insta-icons';
+  src:  url('fonts/insta-icons.eot?6okxtt');
+  src:  url('fonts/insta-icons.eot?6okxtt#iefix') format('embedded-opentype'),
+    url('fonts/insta-icons.ttf?6okxtt') format('truetype'),
+    url('fonts/insta-icons.woff?6okxtt') format('woff'),
+    url('fonts/insta-icons.svg?6okxtt#insta-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'insta-icons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.inst_camera:before {
+  content: "\e90e";
+}
+.inst_plus:before {
+  content: "\e900";
+}
+.inst_arrow_left:before {
+  content: "\e910";
+}
+.inst_arrow_right:before {
+  content: "\e90f";
+}
+.inst_plane:before {
+  content: "\e901";
+}
+.inst_like:before {
+  content: "\e902";
+}
+.inst_search:before {
+  content: "\e903";
+}
+.inst_igtv:before {
+  content: "\e904";
+}
+.inst_explore:before {
+  content: "\e905";
+}
+.inst_like_fill:before {
+  content: "\e906";
+}
+.inst_home:before {
+  content: "\e907";
+}
+.inst_settings:before {
+  content: "\e908";
+}
+.inst_user:before {
+  content: "\e909";
+}
+.inst_reels:before {
+  content: "\e90a";
+}
+.inst_notification:before {
+  content: "\e90b";
+}
+.inst_verified:before {
+  content: "\e90c";
+  color: #0b6af9;
+}
+.inst_comment:before {
+  content: "\e90d";
+}
