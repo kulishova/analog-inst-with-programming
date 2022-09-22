@@ -18,7 +18,7 @@
 
 // Posts render
 const defaultPostData = {
-    img: 'https://placeimg.com/378/570/any',
+    img: 'https://placeimg.com/378/570/any?img=',
     user: {
         photo: 'https://i.pravatar.cc/240?img=',
         nickname: '@user_profil'
@@ -27,18 +27,65 @@ const defaultPostData = {
 
 
 // Функция генерации постов
-function postGeneration(postCount) {
+function postGeneration(postCount = 1) {
     const posts =[]
-    for (let i=1; i < 10; i++) {
-        // Создаем блок div с классом Post 
-        const post = document.createElement('div')
-        post.className = 'post'
-        post.innerHTML = `Hello`
+    let isHorizontal = false
+    
+    function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
+ // Создаем блок div с классом Post 
+ const post = document.createElement('div')
+ post.className = isHorizontal ? 'post post_horizontal' : 'post' 
+ post.innerHTML = `
+ <div class="post__img">
+ <img src="${postImg}" alt="">
+ </div>
+ <div class="post__footer">
+     <div class="post__user">
+         <div class="user user__row">
+             <div  class="user__avatar"> 
+                 <img src="${userPhoto}" alt="Avatar">
+             </div>
+                 <div class="user__nickname">@user_name</div>
+         </div>
+     </div>
+     <div class="post__actions">
+         <div class="post__action">
+             <i class="inst_like"></i>
+         </div>
+         <div class="post__action">
+             <i class="inst_comment"></i>
+         </div>
+         <div class="post__action">
+             <i class="inst_plane"></i>
+         </div>
+     </div>
+ </div>
+</div>
+ `
+ return post
+    }
+
+    for (let i=1; i <= postCount / 2; i++) {
+        // Создаем блок колонку постов
+        const postsColumn = document.createElement('div') 
+        // Создаем пост 1
+        const postImg = defaultPostData.img+i
+        const userPhoto = defaultPostData.user.photo+i
+        const post = postHTMLGenerate(postImg, userPhoto, isHorizontal)
+        //  Создаем пост 2
+        const post2Img = defaultPostData.img+i+1
+        const user2Photo = defaultPostData.user.photo+i+1
+        const post2 = postHTMLGenerate(post2Img, user2Photo, isHorizontal)
 
         posts.push(post)
     }
-
-    console.log(posts)
+    return posts
 }
 
-postGeneration()
+const postsGenerated = postGeneration(10)
+
+const postsBlock = document.querySelector('.posts')
+
+postsGenerated.forEach((post) => {
+    postsBlock.appendChild(post)
+})
