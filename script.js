@@ -28,7 +28,7 @@ const defaultPostData = {
 
 // Функция генерации постов
 function postGeneration(postCount = 1) {
-    const posts =[]
+    const posts = []
     let isHorizontal = false
     
     function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
@@ -66,25 +66,33 @@ function postGeneration(postCount = 1) {
     }
 
     for (let i=1; i <= postCount / 2; i++) {
-        // Создаем блок колонку постов
-        const postsColumn = document.createElement('div') 
+       
         // Создаем пост 1
         const postImg = defaultPostData.img+i
         const userPhoto = defaultPostData.user.photo+i
         const post = postHTMLGenerate(postImg, userPhoto, isHorizontal)
-        //  Создаем пост 2
+        
+        //  Создаем пост 2 
         const post2Img = defaultPostData.img+i+1
         const user2Photo = defaultPostData.user.photo+i+1
-        const post2 = postHTMLGenerate(post2Img, user2Photo, isHorizontal)
+        const post2 = postHTMLGenerate(post2Img, user2Photo, !isHorizontal)
+        
+        // Создаем блок колонку постов
+        const postsColumn = document.createElement('div') 
+        postsColumn.appendChild(post)
+        postsColumn.appendChild(post2)
 
-        posts.push(post)
+        posts.push(postsColumn)
+
+        isHorizontal = !isHorizontal
     }
     return posts
 }
 
-const postsGenerated = postGeneration(10)
+const postsGenerated = postGeneration(50)
 
 const postsBlock = document.querySelector('.posts')
+postsBlock.innerHTML = ''
 
 postsGenerated.forEach((post) => {
     postsBlock.appendChild(post)
