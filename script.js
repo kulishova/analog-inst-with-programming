@@ -1,23 +1,27 @@
 // likes
 {
-  const postsBlock = document.querySelector('.posts')
+  const postBlock = document.querySelector('.posts')
 
-  postsBlock.addEventListener('click', (event) => {
+  postBlock.addEventListener('click', (event) => {
     const target = event.target
+    const isLikeClick =
+      target.classList.contains('inst_like') ||
+      target.classList.contains('inst_like_fill')
 
-    if (target.contains('.post__action i.inst-like')
-})
-  console.log(postsBlock)
-
-  item.addEventListener('click', () => {
-    if (item.getAttribute('like') == 'true') {
-      item.removeAttribute('like')
-      item.innerHTML = '<i class="inst_like"></i>'
-    } else {
-      item.setAttribute('like', 'true')
-      item.innerHTML = '<i class="inst_like_fill" style="color: red"></i>'
+    console.log(isLikeClick)
+    if (isLikeClick) {
+      const parent = target.parentNode
+      console.log(parent)
+      if (parent.getAttribute('like') == 'true') {
+        parent.removeAttribute('like')
+        parent.innerHTML = '<i class="inst_like"></i>'
+      } else {
+        parent.setAttribute('like', 'true')
+        parent.innerHTML = '<i class="inst_like_fill" style="color: red"></i>'
+      }
     }
   })
+  console.log(postBlock)
 }
 
 // Posts render
@@ -33,7 +37,6 @@ const defaultPostData = {
 function postGeneration(postCount = 1) {
   const posts = []
   let isHorizontal = false
-
   function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
     // Создаем блок div с классом Post
     const post = document.createElement('div')
@@ -69,33 +72,26 @@ function postGeneration(postCount = 1) {
   }
 
   for (let i = 1; i <= postCount / 2; i++) {
+    // Создаем блок колонку постов
+    const postsColumn = document.createElement('div')
     // Создаем пост 1
     const postImg = defaultPostData.img + i
     const userPhoto = defaultPostData.user.photo + i
     const post = postHTMLGenerate(postImg, userPhoto, isHorizontal)
-
     //  Создаем пост 2
     const post2Img = defaultPostData.img + i + 1
     const user2Photo = defaultPostData.user.photo + i + 1
-    const post2 = postHTMLGenerate(post2Img, user2Photo, !isHorizontal)
+    const post2 = postHTMLGenerate(post2Img, user2Photo, isHorizontal)
 
-    // Создаем блок колонку постов
-    const postsColumn = document.createElement('div')
-    postsColumn.appendChild(post)
-    postsColumn.appendChild(post2)
-
-    posts.push(postsColumn)
-
-    isHorizontal = !isHorizontal
+    posts.push(post)
   }
   return posts
 }
 
-const postsGenerated = postGeneration(50)
-
 const postsBlock = document.querySelector('.posts')
-postsBlock.innerHTML = ''
+// postsBlock.innerHTML = ''
 
 postsGenerated.forEach((post) => {
   postsBlock.appendChild(post)
 })
+// 37:26  https://www.youtube.com/watch?v=i_oWtDMOUKg&list=PLjv_imdSY6452tOowkttNIetVLpHtPSQK&index=2
