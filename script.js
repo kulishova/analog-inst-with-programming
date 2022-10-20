@@ -1,17 +1,17 @@
 // likes
 {
-  const postBlock = document.querySelector('.posts')
+  const postsBlock = document.querySelector('.posts')
 
-  postBlock.addEventListener('click', (event) => {
+  // Делигирование события родительскому блоку с классом posts
+  postsBlock.addEventListener('click', (event) => {
+    // Проверка элемента по которому конкретно кликнули, что это именно сердечко
     const target = event.target
     const isLikeClick =
       target.classList.contains('inst_like') ||
       target.classList.contains('inst_like_fill')
-
-    console.log(isLikeClick)
+    // Если кликнули по сердечку, то ставим или убираем лайк
     if (isLikeClick) {
       const parent = target.parentNode
-      console.log(parent)
       if (parent.getAttribute('like') == 'true') {
         parent.removeAttribute('like')
         parent.innerHTML = '<i class="inst_like"></i>'
@@ -21,27 +21,28 @@
       }
     }
   })
-  console.log(postBlock)
 }
 
-// Posts render
-const defaultPostData = {
-  img: 'https://placeimg.com/378/570/any?img=',
-  user: {
-    photo: 'https://i.pravatar.cc/240?img=',
-    nickname: '@user_profil',
-  },
-}
+// Posts generation and post render
+{
+  // Posts render
+  const defaultPostData = {
+    img: 'https://placeimg.com/378/570/any?img=',
+    user: {
+      photo: 'https://i.pravatar.cc/240?img=',
+      nickname: '@user_profil',
+    },
+  }
 
-// Функция генерации постов
-function postGeneration(postCount = 1) {
-  const posts = []
-  let isHorizontal = false
-  function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
-    // Создаем блок div с классом Post
-    const post = document.createElement('div')
-    post.className = isHorizontal ? 'post post_horizontal' : 'post'
-    post.innerHTML = `
+  // Функция генерации постов
+  function postGeneration(postCount = 1) {
+    const posts = []
+    let isHorizontal = false
+    function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
+      // Создаем блок div с классом Post
+      const post = document.createElement('div')
+      post.className = isHorizontal ? 'post post_horizontal' : 'post'
+      post.innerHTML = `
  <div class="post__img">
  <img src="${postImg}" alt="">
  </div>
@@ -68,30 +69,37 @@ function postGeneration(postCount = 1) {
  </div>
 </div>
  `
-    return post
+      return post
+    }
+
+    for (let i = 1; i <= postCount / 2; i++) {
+      // Создаем пост 1
+      const postImg = defaultPostData.img + i
+      const userPhoto = defaultPostData.user.photo + i
+      const post = postHTMLGenerate(postImg, userPhoto, isHorizontal)
+      //  Создаем пост 2
+      const post2Img = defaultPostData.img + i + 1
+      const user2Photo = defaultPostData.user.photo + i
+      const post2 = postHTMLGenerate(post2Img, user2Photo, !isHorizontal)
+
+      // Создаем блок колонку постов
+      const postsColumn = document.createElement('div')
+      postsColumn.appendChild(post)
+      postsColumn.appendChild(post2)
+
+      posts.push(postsColumn)
+
+      isHorizontal = !isHorizontal
+    }
+    return posts
   }
 
-  for (let i = 1; i <= postCount / 2; i++) {
-    // Создаем блок колонку постов
-    const postsColumn = document.createElement('div')
-    // Создаем пост 1
-    const postImg = defaultPostData.img + i
-    const userPhoto = defaultPostData.user.photo + i
-    const post = postHTMLGenerate(postImg, userPhoto, isHorizontal)
-    //  Создаем пост 2
-    const post2Img = defaultPostData.img + i + 1
-    const user2Photo = defaultPostData.user.photo + i + 1
-    const post2 = postHTMLGenerate(post2Img, user2Photo, isHorizontal)
+  const postsGenerated = postGeneration(19)
 
-    posts.push(post)
-  }
-  return posts
+  const postsBlock = document.querySelector('.posts')
+  postsBlock.innerHTML = ''
+
+  postsGenerated.forEach((post) => {
+    postsBlock.appendChild(post)
+  })
 }
-
-const postsBlock = document.querySelector('.posts')
-// postsBlock.innerHTML = ''
-
-postsGenerated.forEach((post) => {
-  postsBlock.appendChild(post)
-})
-// 37:26  https://www.youtube.com/watch?v=i_oWtDMOUKg&list=PLjv_imdSY6452tOowkttNIetVLpHtPSQK&index=2
