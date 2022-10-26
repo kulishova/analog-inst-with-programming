@@ -172,6 +172,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="post post_horizontal">
                   <div class="post__img">
                     <img src="https://placeimg.com/378/570/any" alt="" />
@@ -463,9 +464,23 @@
         </main>
       </div>
     </div>
-    <div class="modal__wrap">
+
+    <div class="modal__wrap hiden">
       <div class="modal">
-        <h1>Модальное окно</h1>
+        <h2>Новый пост</h2>
+        <label for="text">Текст поста</label>
+        <textarea
+          class="modal__text"
+          name=""
+          id="text"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <label for="link">Ссылка на картинку поста</label>
+        <input id="link" type="text" />
+        <label for="hashtag">Хештеги</label>
+        <input id="hashtag" type="text" />
+        <div class="modal__btn">Сохранить</div>
       </div>
     </div>
     <script src="/script.js"></script>
