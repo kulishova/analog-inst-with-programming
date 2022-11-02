@@ -104,4 +104,20 @@
   })
 }
 
-// 1:23:48
+// Create post
+{
+  const createButton = document.querySelector('.new-post-btn')
+  const modal = document.querySelector('.modal__wrap')
+
+  createButton.addEventListener('click', () => {
+    if (modal.classList.contains('hidden')) {
+      modal.classList.remove('hidden')
+    }
+  })
+
+  modal.addEventListener('click', (event) => {
+    if (event.target.classList.contains('modal__wrap')) {
+      modal.classList.add('hidden')
+    }
+  })
+}
