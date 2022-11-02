@@ -383,6 +383,9 @@ body {
 .modal > *:not(:last-child) {
   margin-bottom: 8px;
 }
+.modal > * {
+  box-sizing: border-box;
+}
 .modal > label {
   display: block;
   text-align: left;
@@ -395,6 +398,7 @@ body {
 .modal__text {
   width: 100%;
   min-height: 400px;
+  padding: 8px;
 }
 .modal__btn {
   cursor: pointer;
@@ -405,4 +409,8 @@ body {
   padding: 4px 16px;
   color: #ffffff;
   background-color: var(--accent);
+}
+
+.modal__error {
+  border: 1px solid red;
 }

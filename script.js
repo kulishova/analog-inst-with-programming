@@ -38,39 +38,6 @@
   function postGeneration(postCount = 1) {
     const posts = []
     let isHorizontal = false
-    function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
-      // Создаем блок div с классом Post
-      const post = document.createElement('div')
-      post.className = isHorizontal ? 'post post_horizontal' : 'post'
-      post.innerHTML = `
- <div class="post__img">
- <img src="${postImg}" alt="">
- </div>
- <div class="post__footer">
-     <div class="post__user">
-         <div class="user user__row">
-             <div  class="user__avatar"> 
-                 <img src="${userPhoto}" alt="Avatar">
-             </div>
-                 <div class="user__nickname">@user_name</div>
-         </div>
-     </div>
-     <div class="post__actions">
-         <div class="post__action">
-             <i class="inst_like"></i>
-         </div>
-         <div class="post__action">
-             <i class="inst_comment"></i>
-         </div>
-         <div class="post__action">
-             <i class="inst_plane"></i>
-         </div>
-     </div>
- </div>
-</div>
- `
-      return post
-    }
 
     for (let i = 1; i <= postCount / 2; i++) {
       // Создаем пост 1
@@ -93,8 +60,42 @@
     }
     return posts
   }
+  function postHTMLGenerate(postImg, userPhoto, isHorizontal) {
+    // Создаем блок div с классом Post
+    const post = document.createElement('div')
+    post.className = isHorizontal ? 'post post_horizontal' : 'post'
+    post.innerHTML = `
+<div class="post__img">
+<img src="${postImg}" alt="">
+</div>
+<div class="post__footer">
+   <div class="post__user">
+       <div class="user user__row">
+           <div  class="user__avatar"> 
+               <img src="${userPhoto}" alt="Avatar">
+           </div>
+               <div class="user__nickname">@user_name</div>
+       </div>
+   </div>
+   <div class="post__actions">
+       <div class="post__action">
+           <i class="inst_like"></i>
+       </div>
+       <div class="post__action">
+           <i class="inst_comment"></i>
+       </div>
+       <div class="post__action">
+           <i class="inst_plane"></i>
+       </div>
+   </div>
+</div>
+</div>
+`
+    return post
+  }
 
-  const postsGenerated = postGeneration(19)
+  // Количество постов
+  const postsGenerated = postGeneration(10)
 
   const postsBlock = document.querySelector('.posts')
   postsBlock.innerHTML = ''
@@ -108,16 +109,59 @@
 {
   const createButton = document.querySelector('.new-post-btn')
   const modal = document.querySelector('.modal__wrap')
-
+  const modalElements = {
+    text: modal.querySelector('.modal__text'),
+    img: modal.querySelector('#link'),
+    hashtag: modal.querySelector('#hashtag'),
+    saveBtn: modal.querySelector('#save-post'),
+  }
+  const { text, img, hashtag, saveBtn } = modalElements
+  // Отслеживаем клик по кнопке New Post, после клика по ней открываем модальное окно
   createButton.addEventListener('click', () => {
     if (modal.classList.contains('hidden')) {
       modal.classList.remove('hidden')
     }
   })
 
+  // Закрываем модальное окно, если кликнули по темной области
   modal.addEventListener('click', (event) => {
     if (event.target.classList.contains('modal__wrap')) {
       modal.classList.add('hidden')
     }
   })
+
+  // Сохраняем пост
+  saveBtn.addEventListener('click', () => {
+    if (isHaveErrors()) return
+
+    buildNewPostHtnl(img.value)
+  })
+
+  // Функция проверки формы на ошибки
+  function isHaveErrors() {
+    let isError = false
+    text.classList.remove('modal__error')
+    img.classList.remove('modal__error')
+
+    if (!text.value) {
+      text.classList.add('modal__error')
+      isError = true
+    }
+    if (!img.value) {
+      img.classList.add('modal__error')
+      isError = true
+    }
+
+    return isError
+  }
+
+  // Создаем кода нового HTML поста
+  function buildNewPostHtnl(postPhotoURL) {
+    const lastColumn = document.querySelector('.posts > div:last-child')
+    const lastColumnPosts = lastColumn.querySelectorAll('.post')
+
+    console.log(lastColumnPosts)
+
+    postHTMLGenerate(postPhotoURL.value, 'https://i.pravatar.cc/240', false)
+  }
 }
